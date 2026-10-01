@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DEA Practice Quiz</title>
+<meta name="description" content="Practice quiz for trainee Domestic Energy Assessors. 20 random questions from the RDSAP 10 course books, with answers and reasons.">
+<meta name="theme-color" content="#0f2f36">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f2f36'/%3E%3Crect x='5' y='6' width='10' height='3' fill='%23008054'/%3E%3Crect x='5' y='10' width='13' height='3' fill='%2319b459'/%3E%3Crect x='5' y='14' width='16' height='3' fill='%238dce46'/%3E%3Crect x='5' y='18' width='19' height='3' fill='%23ffd500'/%3E%3Crect x='5' y='22' width='22' height='3' fill='%23ef8023'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#10262c; --ink-2:#4a5d63; --paper:#edf1f1; --card:#ffffff; --line:#cdd8da;
+  --brand:#0e5563; --brand-dark:#0a3f4a; --on-brand:#ffffff;
+  --ok:#0a6e43; --ok-bg:#e3f3ea; --bad:#a8132f; --bad-bg:#fbe7ec;
+  --r:10px;
+  --head:"Familjen Grotesk","Segoe UI",system-ui,sans-serif;
+  --body:"Public Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.55 var(--body);
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left)}
+.wrap{max-width:720px;margin:0 auto;padding:0 18px}
+header.top{padding:16px 0 6px;display:flex;align-items:center;gap:10px}
+.mark{display:grid;gap:2px;width:22px}
+.mark i{display:block;height:4px;border-radius:1px}
+.brand{font:700 1.05rem/1 var(--head);letter-spacing:.01em}
+main{padding-bottom:24px;outline:0}
+h1,h2,h3{font-family:var(--head);margin:0;line-height:1.12;letter-spacing:-.01em}
+.display{font-size:clamp(2rem,7.5vw,3.1rem);font-weight:700;margin:18px 0 12px;max-width:16ch;outline:0}
+.lede{font-size:1.08rem;color:var(--ink-2);max-width:46ch;margin:0 0 22px}
+footer{padding:8px 0 28px;color:var(--ink-2);font-size:.85rem}
+
+/* EPC band chart: the one memorable element */
+.bands{display:grid;gap:5px;margin:0 0 24px}
+.band-row{display:flex;align-items:center;gap:8px;height:40px}
+.band{height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font:700 1.05rem/1 var(--head);
+  clip-path:polygon(0 0,calc(100% - 14px) 0,100% 50%,calc(100% - 14px) 100%,0 100%);padding-right:22px}
+.band small{font:600 .76rem/1 var(--body);opacity:.92;white-space:nowrap}
+.band.A{background:#008054;color:#fff}.band.B{background:#19b459;color:#fff}.band.C{background:#8dce46;color:#10262c}
+.band.D{background:#ffd500;color:#10262c}.band.E{background:#fcaa65;color:#10262c}.band.F{background:#ef8023;color:#10262c}.band.G{background:#e9153b;color:#fff}
+.marker{background:var(--ink);color:#fff;font:700 1.05rem/1 var(--head);height:100%;display:flex;align-items:center;padding:0 12px 0 22px;white-space:nowrap;
+  clip-path:polygon(0 50%,14px 0,100% 0,100% 100%,14px 100%)}
+.bands.live .band-row{animation:slide .5s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*70ms)}
+@keyframes slide{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
+
+.facts{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:6px;color:var(--ink-2)}
+.facts li{padding-left:18px;position:relative}
+.facts li:before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px;background:var(--brand)}
+
+.btn{font:600 1rem/1 var(--body);border-radius:var(--r);border:2px solid var(--brand);background:transparent;color:var(--brand);
+  padding:14px 20px;cursor:pointer;min-height:50px}
+.btn.primary{background:var(--brand);color:var(--on-brand)}
+.btn.primary:hover{background:var(--brand-dark);border-color:var(--brand-dark)}
+.btn:hover{background:#dfeaec}
+.btn.primary:hover{color:#fff}
+.btn.big{width:100%;font-size:1.1rem;min-height:56px}
+.btn.link{border:0;background:none;padding:6px 0;min-height:0;text-decoration:underline;font-weight:500;color:var(--ink-2)}
+.btn.link:hover{background:none;color:var(--ink)}
+:focus-visible{outline:3px solid #1b78ff;outline-offset:2px}
+
+.history{margin-top:26px}
+.history h2{font-size:1.05rem;margin-bottom:8px}
+.history ul{list-style:none;padding:0;margin:0 0 6px;border-top:1px solid var(--line)}
+.history li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.history b{font-family:var(--head)}
+
+/* Quiz */
+.qhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:10px 0 8px}
+.qcount{font:700 1.05rem/1.2 var(--head)}
+.qtopic{color:var(--ink-2);font-size:.92rem;text-align:right}
+.progress{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:3px;margin-bottom:16px}
+.progress i{height:6px;border-radius:2px;background:var(--line)}
+.progress i.ok{background:var(--ok)}.progress i.no{background:var(--bad)}.progress i.now{background:var(--brand)}
+.qtext{font-size:clamp(1.2rem,4.6vw,1.45rem);font-weight:600;line-height:1.3;margin:0 0 14px;outline:0}
+.fig{margin:0 0 14px;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;position:relative}
+.fig button{display:block;width:100%;border:0;padding:0;background:#fff;cursor:zoom-in}
+.fig img{display:block;margin:0 auto;max-width:100%;max-height:320px;object-fit:contain}
+.fig figcaption{font-size:.8rem;color:var(--ink-2);padding:6px 10px;border-top:1px solid var(--line)}
+.opts{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.opt{width:100%;text-align:left;display:grid;grid-template-columns:34px 1fr auto;align-items:start;gap:12px;
+  background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:12px 14px;min-height:56px;cursor:pointer;
+  font:500 1rem/1.4 var(--body);color:var(--ink)}
+.opt:hover:not([disabled]){border-color:var(--brand)}
+.opt .let{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font:700 .9rem/1 var(--head);margin-top:-2px}
+.opt .tag{font:700 .8rem/1.4 var(--body);align-self:center;white-space:nowrap}
+.opt[disabled]{cursor:default}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.right .let{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.right .tag{color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.wrong .let{background:var(--bad);border-color:var(--bad);color:#fff}
+.opt.wrong .tag{color:var(--bad)}
+.opt.dim{opacity:.62}
+.fb{margin-top:16px;border-radius:var(--r);padding:14px 16px;border:2px solid;outline:0}
+.fb.ok{background:var(--ok-bg);border-color:var(--ok)}
+.fb.no{background:var(--bad-bg);border-color:var(--bad)}
+.fb h2{font-size:1.2rem;margin-bottom:6px}
+.fb.ok h2{color:var(--ok)}.fb.no h2{color:var(--bad)}
+.fb p{margin:6px 0 0}
+.fb .src{font-size:.88rem;color:var(--ink-2)}
+.actions{position:sticky;bottom:0;padding:14px 0 calc(14px + env(safe-area-inset-bottom));
+  background:linear-gradient(to bottom,rgba(237,241,241,0),var(--paper) 28%)}
+
+/* Results */
+.score{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:14px 0 6px}
+.score h1{font-size:clamp(2.4rem,10vw,3.6rem);outline:0}
+.score span{font:600 1.2rem/1 var(--head);color:var(--ink-2)}
+.msg{margin:0 0 18px;color:var(--ink-2);max-width:48ch}
+.note{font-size:.85rem;color:var(--ink-2);margin:-12px 0 22px}
+.row-actions{display:grid;gap:10px;margin:0 0 28px}
+@media(min-width:520px){.row-actions{grid-template-columns:1fr 1fr}}
+.sec{margin:0 0 30px}
+.sec>h2{font-size:1.3rem;margin-bottom:10px}
+.topics{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.topics li{display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:baseline}
+.topics .bar{grid-column:1/-1;height:8px;border-radius:2px;background:var(--line);overflow:hidden}
+.topics .bar i{display:block;height:100%;background:var(--brand)}
+.topics .n{font:700 .95rem/1 var(--head)}
+.filters{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.chip{border:2px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font:600 .92rem/1 var(--body);cursor:pointer;color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.review{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.item{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--ok);border-radius:var(--r);padding:14px 16px}
+.item.no{border-left-color:var(--bad)}
+.item .meta{font-size:.85rem;color:var(--ink-2);margin-bottom:4px}
+.item h3{font-size:1.08rem;font-weight:600;margin-bottom:10px;line-height:1.3}
+.item img{display:block;max-width:100%;max-height:170px;margin:0 0 10px;border:1px solid var(--line);border-radius:6px;cursor:zoom-in;background:#fff}
+.item dl{margin:0;display:grid;gap:8px}
+.item dt{font-weight:700;font-size:.85rem;color:var(--ink-2)}
+.item dd{margin:0}
+.tagok{color:var(--ok);font-weight:700}.tagno{color:var(--bad);font-weight:700}
+dialog{border:0;padding:0;background:transparent;max-width:min(96vw,900px);width:96vw}
+dialog::backdrop{background:rgba(8,20,24,.82)}
+dialog .box{background:#fff;border-radius:var(--r);padding:10px;text-align:center}
+dialog img{max-width:100%;max-height:78vh}
+dialog .btn{margin-top:8px;width:100%}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.bands.live .band-row{animation:none}*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="mark" aria-hidden="true"><i style="width:10px;background:#008054"></i><i style="width:14px;background:#19b459"></i><i style="width:18px;background:#8dce46"></i><i style="width:22px;background:#ffd500"></i></div>
+    <div class="brand">DEA Practice Quiz</div>
+  </header>
+  <main id="app" tabindex="-1"></main>
+  <footer>Based on the RDSAP 10 Level 3 DEA course books. For revision only. Always check current RDSAP conventions and your accreditation scheme guidance.</footer>
+</div>
+
+<dialog id="lb" aria-label="Enlarged image">
+  <div class="box"><img id="lbimg" alt=""><button class="btn" id="lbclose" type="button">Close image</button></div>
+</dialog>
+
+<noscript><div class="wrap"><p>This quiz needs JavaScript. Please enable it and reload the page.</p></div></noscript>
+
+<script src="questions.js"></script>
+<script>
+(function () {
+  'use strict';
+  const BANK = window.QUESTIONS || [];
+  const TOTAL = 20;          // questions per quiz
+  const IMG_MIN = 6;         // photo/diagram questions per quiz
+  const LETTERS = ['A', 'B', 'C', 'D'];
+  const GRADES = [
+    { g: 'A', min: 90, range: '90%+', msg: 'Excellent recall. Check the one or two you missed below.' },
+    { g: 'B', min: 80, range: '80–89%',  msg: 'Very good. A few gaps to tidy up before the next attempt.' },
+    { g: 'C', min: 70, range: '70–79%',  msg: 'Good. Read the reasons for the missed questions and revisit the pages cited.' },
+    { g: 'D', min: 60, range: '60–69%',  msg: 'Fair. Revisit the topics below, then take another quiz.' },
+    { g: 'E', min: 50, range: '50–59%',  msg: 'More revision needed. Work through the pages cited in the review.' },
+    { g: 'F', min: 40, range: '40–49%',  msg: 'More revision needed. Work through the pages cited in the review.' },
+    { g: 'G', min: 0,  range: 'Under 40%',  msg: 'Start with the topics below and the pages cited, then try again.' }
+  ];
+  const BAND_W = [34, 41, 48, 55, 62, 69, 76];
+  const HK = 'dea-quiz:history', LK = 'dea-quiz:last';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const store = {
+    get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } },
+    del(k) { try { localStorage.removeItem(k); } catch (e) { /* ignore */ } }
+  };
+
+  const app = document.getElementById('app');
+  let quiz = [], pos = 0;
+
+  /* ---------- helpers ---------- */
+  function h(tag, props, ...kids) {
+    const el = document.createElement(tag);
+    for (const [k, v] of Object.entries(props || {})) {
+      if (v == null || v === false) continue;
+      if (k === 'class') el.className = v;
+      else if (k === 'text') el.textContent = v;
+      else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+      else if (v === true) el.setAttribute(k, '');
+      else el.setAttribute(k, v);
+    }
+    for (const c of kids.flat()) {
+      if (c == null || c === false) continue;
+      el.append(c.nodeType ? c : document.createTextNode(c));
+    }
+    return el;
+  }
+  function shuffle(a) {
+    a = a.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function mount(node) {
+    app.replaceChildren(node);
+    window.scrollTo(0, 0);
+  }
+  function gradeFor(pct) { return GRADES.find(x => pct >= x.min); }
+
+  function bandChart(active, label, live) {
+    const wrap = h('div', { class: 'bands' + (live ? ' live' : ''), role: 'img', 'aria-label': active ? `Practice grade ${active.g}. ${label}` : 'EPC rating bands from A to G' });
+    GRADES.forEach((x, i) => {
+      const row = h('div', { class: 'band-row', 'aria-hidden': 'true', style: `--i:${i}` },
+        h('div', { class: `band ${x.g}`, style: `width:${BAND_W[i]}%` }, h('span', null, x.g), h('small', null, x.range)));
+      if (active && active.g === x.g) row.append(h('div', { class: 'marker' }, label));
+      wrap.append(row);
+    });
+    return wrap;
+  }
+
+  /* ---------- building a quiz ---------- */
+  function pick(pool, n, lastSet) {
+    // prefer questions that were not in the previous quiz, but stay random
+    const fresh = shuffle(pool.filter(q => !lastSet.has(q.q)));
+    const seen = shuffle(pool.filter(q => lastSet.has(q.q)));
+    return fresh.concat(seen).slice(0, n);
+  }
+  function prepare(q) {
+    const order = shuffle([0, 1, 2, 3]);
+    return { q, order, correct: order.indexOf(q.a), chosen: null };
+  }
+  function newQuiz() {
+    const last = new Set(store.get(LK) || []);
+    const imgs = BANK.filter(q => q.img), txt = BANK.filter(q => !q.img);
+    const nImg = Math.min(IMG_MIN, imgs.length);
+    const chosen = pick(imgs, nImg, last).concat(pick(txt, TOTAL - nImg, last));
+    quiz = shuffle(chosen).map(prepare);
+    store.set(LK, quiz.map(x => x.q.q));
+    pos = 0;
+    viewQuestion();
+  }
+  function retryMissed() {
+    const missed = quiz.filter(x => x.chosen !== x.correct).map(x => x.q);
+    if (!missed.length) return newQuiz();
+    quiz = shuffle(missed).map(prepare);
+    pos = 0;
+    viewQuestion();
+  }
+
+  /* ---------- views ---------- */
+  function viewStart() {
+    const hist = store.get(HK) || [];
+    const nImg = BANK.filter(q => q.img).length;
+    const node = h('section', null,
+      h('h1', { class: 'display', tabindex: '-1' }, 'Practise for your DEA assessment'),
+      h('p', { class: 'lede' }, `${TOTAL} random questions from your RDSAP 10 course books. Every answer comes with the reason and the page to revise.`),
+      bandChart(null, '', false),
+      h('ul', { class: 'facts' },
+        h('li', null, `${BANK.length} questions in the bank, ${nImg} with photos or diagrams`),
+        h('li', null, `Each quiz has at least ${Math.min(IMG_MIN, nImg)} photo or diagram questions`),
+        h('li', null, 'Answer and reason shown after every question, full results at the end')),
+      h('button', { class: 'btn primary big', type: 'button', onclick: newQuiz }, 'Start quiz'));
+    if (hist.length) {
+      node.append(h('div', { class: 'history' },
+        h('h2', null, 'Your recent scores'),
+        h('ul', null, hist.slice(0, 5).map(r => h('li', null, h('span', null, r.d), h('span', null, h('b', null, `${r.s}/${r.t}`), ` · grade ${r.g}`)))),
+        h('button', { class: 'btn link', type: 'button', onclick: () => { store.del(HK); viewStart(); } }, 'Clear scores on this device')));
+    }
+    mount(node);
+  }
+
+  function viewQuestion() {
+    const item = quiz[pos], q = item.q;
+    const n = quiz.length;
+    const progress = h('div', { class: 'progress', style: `--n:${n}`, 'aria-hidden': 'true' },
+      quiz.map((x, i) => h('i', { class: i === pos ? 'now' : x.chosen == null ? '' : (x.chosen === x.correct ? 'ok' : 'no') })));
+    const heading = h('h1', { class: 'qtext', id: 'qt', tabindex: '-1' }, q.q);
+    const list = h('ul', { class: 'opts', role: 'group', 'aria-labelledby': 'qt' });
+    const buttons = item.order.map((origIdx, di) => {
+      const b = h('button', { class: 'opt', type: 'button', onclick: () => answer(di) },
+        h('span', { class: 'let', 'aria-hidden': 'true' }, LETTERS[di]), h('span', null, q.o[origIdx]), h('span', { class: 'tag' }));
+      list.append(h('li', null, b));
+      return b;
+    });
+    const fb = h('div', { 'aria-live': 'polite' });
+    const next = h('button', { class: 'btn primary big', type: 'button', onclick: () => { pos++; pos < n ? viewQuestion() : viewResults(); } }, pos === n - 1 ? 'See results' : 'Next question');
+    const actions = h('div', { class: 'actions' });
+
+    const node = h('section', null,
+      h('div', { class: 'qhead' }, h('div', { class: 'qcount' }, `Question ${pos + 1} of ${n}`), h('div', { class: 'qtopic' }, q.t)),
+      progress, heading);
+    if (q.img) {
+      const img = h('img', { src: q.img, alt: q.alt || 'Photo or diagram for this question' });
+      node.append(h('figure', { class: 'fig' },
+        h('button', { type: 'button', 'aria-label': 'Enlarge image', onclick: () => openImage(q.img, q.alt) }, img),
+        h('figcaption', null, 'Tap the image to enlarge')));
+    }
+    node.append(list, fb, actions);
+
+    function answer(di) {
+      if (item.chosen != null) return;
+      item.chosen = di;
+      const ok = di === item.correct;
+      buttons.forEach((b, i) => {
+        b.disabled = true;
+        const tag = b.querySelector('.tag');
+        if (i === item.correct) { b.classList.add('right'); tag.textContent = ok ? 'Correct' : 'Correct answer'; }
+        else if (i === di) { b.classList.add('wrong'); tag.textContent = 'Your answer'; }
+        else b.classList.add('dim');
+      });
+      progress.children[pos].className = ok ? 'ok' : 'no';
+      const box = h('div', { class: 'fb ' + (ok ? 'ok' : 'no'), tabindex: '-1' },
+        h('h2', null, ok ? 'Correct' : 'Not quite'),
+        !ok && h('p', null, h('b', null, `The correct answer is ${LETTERS[item.correct]}: `), q.o[q.a]),
+        h('p', null, q.why),
+        h('p', { class: 'src' }, `Revise: ${q.src}`));
+      fb.replaceChildren(box);
+      actions.replaceChildren(next);
+      box.focus({ preventScroll: true });
+      // keep the reason visible above the sticky Next button
+      const r = box.getBoundingClientRect(), barH = 96;
+      if (r.bottom > window.innerHeight - barH || r.top < 0) {
+        const y = window.scrollY + r.top - 76;
+        window.scrollTo({ top: Math.max(0, y), behavior: reduceMotion ? 'auto' : 'smooth' });
+      }
+    }
+    item.answer = answer;
+    mount(node);
+    heading.focus({ preventScroll: true });
+    const upcoming = quiz[pos + 1];
+    if (upcoming && upcoming.q.img) { const pre = new Image(); pre.src = upcoming.q.img; }
+  }
+
+  function viewResults() {
+    const total = quiz.length;
+    const score = quiz.filter(x => x.chosen === x.correct).length;
+    const pct = Math.round(score / total * 100);
+    const grade = gradeFor(pct);
+    const hist = store.get(HK) || [];
+    hist.unshift({ d: new Date().toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }), s: score, t: total, g: grade.g });
+    store.set(HK, hist.slice(0, 8));
+
+    // topic breakdown
+    const topics = {};
+    quiz.forEach(x => { const t = topics[x.q.t] || (topics[x.q.t] = { c: 0, n: 0 }); t.n++; if (x.chosen === x.correct) t.c++; });
+    const topicRows = Object.entries(topics).sort((a, b) => (a[1].c / a[1].n) - (b[1].c / b[1].n) || b[1].n - a[1].n)
+      .map(([name, t]) => h('li', null, h('span', null, name), h('span', { class: 'n' }, `${t.c}/${t.n}`), h('div', { class: 'bar', 'aria-hidden': 'true' }, h('i', { style: `width:${t.c / t.n * 100}%` }))));
+
+    const missed = total - score;
+    const reviewList = h('ol', { class: 'review' });
+    const chips = {};
+    function paintReview(filter) {
+      reviewList.replaceChildren(...quiz.map((x, i) => ({ x, i })).filter(({ x }) => filter === 'all' || x.chosen !== x.correct).map(({ x, i }) => reviewItem(x, i)));
+      if (!reviewList.children.length) reviewList.append(h('li', null, 'No incorrect answers. Well done.'));
+      Object.entries(chips).forEach(([k, c]) => c.setAttribute('aria-pressed', String(k === filter)));
+    }
+    chips.all = h('button', { class: 'chip', type: 'button', onclick: () => paintReview('all') }, `All ${total}`);
+    chips.wrong = h('button', { class: 'chip', type: 'button', onclick: () => paintReview('wrong') }, `Incorrect only (${missed})`);
+
+    const label = `${score}/${total}`;
+    const heading = h('h1', { tabindex: '-1' }, `${score} out of ${total}`);
+    const node = h('section', null,
+      h('div', { class: 'score' }, heading, h('span', null, `${pct}%`)),
+      h('p', { class: 'msg' }, grade.msg),
+      bandChart(grade, label, !reduceMotion),
+      h('p', { class: 'note' }, 'The grade bands copy the EPC scale. They are a practice guide only, not an official pass mark.'),
+      h('div', { class: 'row-actions' },
+        h('button', { class: 'btn primary', type: 'button', onclick: newQuiz }, 'Start a new quiz'),
+        missed ? h('button', { class: 'btn', type: 'button', onclick: retryMissed }, `Retry the ${missed} I got wrong`) : null),
+      h('div', { class: 'sec' }, h('h2', null, 'Results by topic'), h('ul', { class: 'topics' }, topicRows)),
+      h('div', { class: 'sec' }, h('h2', null, 'Full review'), h('div', { class: 'filters' }, chips.all, chips.wrong), reviewList),
+      h('button', { class: 'btn', type: 'button', onclick: viewStart }, 'Back to start'));
+    mount(node);
+    paintReview('all');
+    heading.focus({ preventScroll: true });
+  }
+
+  function reviewItem(x, i) {
+    const q = x.q, ok = x.chosen === x.correct;
+    const yours = x.chosen == null ? 'No answer' : `${LETTERS[x.chosen]}: ${q.o[x.order[x.chosen]]}`;
+    return h('li', { class: 'item' + (ok ? '' : ' no') },
+      h('div', { class: 'meta' }, `Question ${i + 1} · ${q.t}`),
+      h('h3', null, q.q),
+      q.img && h('img', { src: q.img, alt: q.alt || '', onclick: () => openImage(q.img, q.alt) }),
+      h('dl', null,
+        h('div', null, h('dt', null, 'Your answer'), h('dd', null, h('span', { class: ok ? 'tagok' : 'tagno' }, ok ? 'Correct. ' : 'Incorrect. '), yours)),
+        !ok && h('div', null, h('dt', null, 'Correct answer'), h('dd', null, `${LETTERS[x.correct]}: ${q.o[q.a]}`)),
+        h('div', null, h('dt', null, 'Why'), h('dd', null, q.why)),
+        h('div', null, h('dt', null, 'Revise'), h('dd', null, q.src))));
+  }
+
+  /* ---------- image viewer ---------- */
+  const lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
+  function openImage(src, alt) { lbimg.src = src; lbimg.alt = alt || ''; if (lb.showModal) lb.showModal(); else window.open(src, '_blank'); }
+  document.getElementById('lbclose').addEventListener('click', () => lb.close());
+  lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
+
+  /* ---------- keyboard: A-D or 1-4 to answer ---------- */
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey || e.metaKey || e.altKey || lb.open) return;
+    const item = quiz[pos];
+    if (!item || item.chosen != null || !app.querySelector('.opts')) return;
+    const k = e.key.toLowerCase();
+    const idx = '1234'.indexOf(k) >= 0 && k.length === 1 ? '1234'.indexOf(k) : 'abcd'.indexOf(k) >= 0 && k.length === 1 ? 'abcd'.indexOf(k) : -1;
+    if (idx >= 0) { e.preventDefault(); item.answer(idx); }
+  });
+
+  if (!BANK.length) app.append(h('p', null, 'The question bank could not be loaded. Check that questions.js is in the same folder as index.html.'));
+  else viewStart();
+})();
+</script>
+</body>
+</html>
