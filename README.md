@@ -1,13 +1,14 @@
 # DEA Practice Quiz
 
-A static quiz site for trainee Domestic Energy Assessors. It serves 20 random questions per quiz from a bank of 164, including 50 photo and diagram questions drawn from the RDSAP 10 course books. After each question it shows the correct answer with the reason and the course page to revise. At the end it shows the full results.
+A static quiz site for trainee Domestic Energy Assessors. It serves 20 random questions per quiz from a bank of 246, including 62 photo and diagram questions. Questions come from the RDSAP 10 course books, the City & Guilds unit outline (Units 371 to 374) and government EPC guidance. After each question it shows the correct answer with the reason and where to revise. At the end it shows the full results. The start screen lets learners focus a quiz on the site visit and safety, heating controls and meters, building fabric, or heating, hot water and ventilation.
 
 There is no server code and no build step, so it runs on Cloudflare Pages as-is.
 
 ## Files
 
 - `index.html` – the app (layout, styles and quiz logic)
-- `questions.js` – the question bank (edit this to add or change questions)
+- `questions.js` – the main question bank (course-book questions)
+- `questions-site-visit.js` – the second set: site visit, heating controls, electricity meters, secondary heating and renewables
 - `img/` – photos and diagrams used by the image questions
 - `_headers` – Cloudflare Pages headers (security and image caching)
 
@@ -38,7 +39,7 @@ The quiz uses images taken from the Skillsmax course slides. If you do not have 
 
 ## Adding questions
 
-Open `questions.js` and copy an existing entry:
+Open `questions.js` or `questions-site-visit.js` and copy an existing entry:
 
 ```
 Q('Topic', 'Question text?', ['Right answer','Wrong 1','Wrong 2','Wrong 3'], 0,
@@ -48,6 +49,7 @@ Q('Topic', 'Question text?', ['Right answer','Wrong 1','Wrong 2','Wrong 3'], 0,
 - The number after the options is the index of the correct option (0 is the first).
 - Options are shuffled each time, so the correct answer moves around.
 - Leave out the last two values for a question without an image.
-- `SRC.B1(n)`, `SRC.B2(n)` and `SRC.B3(n)` give "Course book 1/2/3, page …".
+- `SRC.B1(n)`, `SRC.B2(n)` and `SRC.B3(n)` give "Course book 1/2/3, page …". `SRC.CG(373)`, `SRC.GOV()`, `SRC.GP()`, `SRC.TP()` and `SRC.RB()` label the City & Guilds handbook, government guide, good practice, training provider and RdSAP 10 guidance sources.
+- To add a new focus group, edit the `FOCI` list near the top of the script in `index.html`.
 
 Scores are stored only in the learner's own browser (localStorage). Nothing is sent to a server.

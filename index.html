@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>DEA Practice Quiz</title>
-<meta name="description" content="Practice quiz for trainee Domestic Energy Assessors. 20 random questions from the RDSAP 10 course books, with answers and reasons.">
+<meta name="description" content="Practice quiz for trainee Domestic Energy Assessors. 20 random questions on RDSAP 10, the site visit, heating controls and meters, with answers and reasons.">
 <meta name="theme-color" content="#0f2f36">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f2f36'/%3E%3Crect x='5' y='6' width='10' height='3' fill='%23008054'/%3E%3Crect x='5' y='10' width='13' height='3' fill='%2319b459'/%3E%3Crect x='5' y='14' width='16' height='3' fill='%238dce46'/%3E%3Crect x='5' y='18' width='19' height='3' fill='%23ffd500'/%3E%3Crect x='5' y='22' width='22' height='3' fill='%23ef8023'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,6 +62,9 @@ footer{padding:8px 0 28px;color:var(--ink-2);font-size:.85rem}
 .btn.link:hover{background:none;color:var(--ink)}
 :focus-visible{outline:3px solid #1b78ff;outline-offset:2px}
 
+.focus{margin:0 0 18px}
+.focus p{margin:0 0 8px;font-weight:600}
+.focus .filters{margin-bottom:0}
 .history{margin-top:26px}
 .history h2{font-size:1.05rem;margin-bottom:8px}
 .history ul{list-style:none;padding:0;margin:0 0 6px;border-top:1px solid var(--line)}
@@ -149,7 +152,7 @@ dialog .btn{margin-top:8px;width:100%}
     <div class="brand">DEA Practice Quiz</div>
   </header>
   <main id="app" tabindex="-1"></main>
-  <footer>Based on the RDSAP 10 Level 3 DEA course books. For revision only. Always check current RDSAP conventions and your accreditation scheme guidance.</footer>
+  <footer>Based on the RDSAP 10 Level 3 DEA course books, the City &amp; Guilds unit outline and government EPC guidance. For revision only. Always check current RDSAP conventions and your accreditation scheme guidance.</footer>
 </div>
 
 <dialog id="lb" aria-label="Enlarged image">
@@ -159,6 +162,7 @@ dialog .btn{margin-top:8px;width:100%}
 <noscript><div class="wrap"><p>This quiz needs JavaScript. Please enable it and reload the page.</p></div></noscript>
 
 <script src="questions.js"></script>
+<script src="questions-site-visit.js"></script>
 <script>
 (function () {
   'use strict';
@@ -177,6 +181,16 @@ dialog .btn{margin-top:8px;width:100%}
   ];
   const BAND_W = [34, 41, 48, 55, 62, 69, 76];
   const HK = 'dea-quiz:history', LK = 'dea-quiz:last';
+  const FABRIC = ['Glazing', 'Doors', 'Walls', 'Roofs', 'Floors', 'Insulation', 'Dimensions', 'Dwelling forms', 'Dwelling parts', 'Age bands'];
+  const SERVICES = ['Heating', 'Heating controls', 'Electricity meters', 'Secondary heating', 'Hot water', 'Ventilation', 'Lighting', 'Renewables'];
+  const FOCI = [
+    { id: 'mixed',    label: 'Mixed',                       test: () => true },
+    { id: 'visit',    label: 'Site visit and safety',       test: q => /^(Site visit|Customer contact)/.test(q.t) },
+    { id: 'controls', label: 'Heating controls and meters', test: q => ['Heating controls', 'Electricity meters', 'Secondary heating'].includes(q.t) },
+    { id: 'fabric',   label: 'Building fabric',             test: q => FABRIC.includes(q.t) },
+    { id: 'services', label: 'Heating, hot water and ventilation', test: q => SERVICES.includes(q.t) }
+  ];
+  let focus = 'mixed';
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const store = {
@@ -241,11 +255,15 @@ dialog .btn{margin-top:8px;width:100%}
     const order = shuffle([0, 1, 2, 3]);
     return { q, order, correct: order.indexOf(q.a), chosen: null };
   }
+  function poolFor() { return BANK.filter(FOCI.find(f => f.id === focus).test); }
   function newQuiz() {
+    const pool = poolFor();
+    const total = Math.min(TOTAL, pool.length);
     const last = new Set(store.get(LK) || []);
-    const imgs = BANK.filter(q => q.img), txt = BANK.filter(q => !q.img);
-    const nImg = Math.min(IMG_MIN, imgs.length);
-    const chosen = pick(imgs, nImg, last).concat(pick(txt, TOTAL - nImg, last));
+    const imgs = pool.filter(q => q.img), txt = pool.filter(q => !q.img);
+    const nImg = Math.min(IMG_MIN, imgs.length, total);
+    let chosen = pick(imgs, nImg, last).concat(pick(txt, total - nImg, last));
+    if (chosen.length < total) chosen = chosen.concat(pick(imgs.filter(q => !chosen.includes(q)), total - chosen.length, last));
     quiz = shuffle(chosen).map(prepare);
     store.set(LK, quiz.map(x => x.q.q));
     pos = 0;
@@ -263,15 +281,29 @@ dialog .btn{margin-top:8px;width:100%}
   function viewStart() {
     const hist = store.get(HK) || [];
     const nImg = BANK.filter(q => q.img).length;
+    const startBtn = h('button', { class: 'btn primary big', type: 'button', onclick: newQuiz });
+    const chipEls = {};
+    const paintFocus = () => {
+      Object.entries(chipEls).forEach(([id, el]) => el.setAttribute('aria-pressed', String(id === focus)));
+      startBtn.textContent = `Start quiz (${Math.min(TOTAL, poolFor().length)} questions)`;
+    };
+    FOCI.forEach(f => {
+      const n = BANK.filter(f.test).length;
+      chipEls[f.id] = h('button', { class: 'chip', type: 'button', onclick: () => { focus = f.id; paintFocus(); } }, `${f.label} (${n})`);
+    });
+    const focusBox = h('div', { class: 'focus', role: 'group', 'aria-label': 'Quiz focus' },
+      h('p', null, 'Choose a focus'), h('div', { class: 'filters' }, Object.values(chipEls)));
+    paintFocus();
     const node = h('section', null,
       h('h1', { class: 'display', tabindex: '-1' }, 'Practise for your DEA assessment'),
-      h('p', { class: 'lede' }, `${TOTAL} random questions from your RDSAP 10 course books. Every answer comes with the reason and the page to revise.`),
+      h('p', { class: 'lede' }, `${TOTAL} random questions from your RDSAP 10 course books and the assessor guidance. Every answer comes with the reason and where to revise.`),
       bandChart(null, '', false),
       h('ul', { class: 'facts' },
         h('li', null, `${BANK.length} questions in the bank, ${nImg} with photos or diagrams`),
-        h('li', null, `Each quiz has at least ${Math.min(IMG_MIN, nImg)} photo or diagram questions`),
+        h('li', null, `Mixed quizzes include at least ${Math.min(IMG_MIN, nImg)} photo or diagram questions`),
         h('li', null, 'Answer and reason shown after every question, full results at the end')),
-      h('button', { class: 'btn primary big', type: 'button', onclick: newQuiz }, 'Start quiz'));
+      focusBox,
+      startBtn);
     if (hist.length) {
       node.append(h('div', { class: 'history' },
         h('h2', null, 'Your recent scores'),
